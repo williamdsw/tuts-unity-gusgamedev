@@ -155,8 +155,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 226439dde31e19b4488781f6be964227, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSpeed: 0
-  jumpForce: 0
+  maxSpeed: 1.5
+  jumpForce: 100
+  groundCheck: {fileID: 2022109116}
+  bulletSpawn: {fileID: 609894982}
+  layerGround:
+    serializedVersion: 2
+    m_Bits: 1024
+  isGrounded: 0
+  isJumping: 0
 --- !u!1 &609894981
 GameObject:
   m_ObjectHideFlags: 0
@@ -211,7 +218,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2022109115}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.1, z: 0}
+  m_LocalPosition: {x: 0, y: -0.1064, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 486240}
