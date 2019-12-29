@@ -156,7 +156,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxSpeed: 1.5
-  jumpForce: 100
+  jumpForce: 150
   groundCheck: {fileID: 2022109116}
   bulletSpawn: {fileID: 609894982}
   layerGround:

@@ -63,6 +63,9 @@ public class Player : MonoBehaviour
             rigidBody2D.AddForce (new Vector2 (0f, jumpForce));
             isJumping = false;
         }
+
+        animator.SetFloat ("Speed", Mathf.Abs (horizontal));
+        animator.SetBool ("IsJumpFall", rigidBody2D.velocity.y != 0f);
     }
 
     //-----------------------------------------------------------------//
