@@ -50,10 +50,26 @@ public class Player : MonoBehaviour
 
     private void FixedUpdate () 
     {
+        float horizontal = Input.GetAxis ("Horizontal");
+        rigidBody2D.velocity = new Vector2 (horizontal * maxSpeed, rigidBody2D.velocity.y);
+
+        if ((horizontal > 0f && spriteRenderer.flipX) || (horizontal < 0f && !spriteRenderer.flipX))
+        {
+            Flip ();
+        }
+
         if (isJumping)
         {
             rigidBody2D.AddForce (new Vector2 (0f, jumpForce));
             isJumping = false;
         }
+    }
+
+    //-----------------------------------------------------------------//
+    // HELPER FUNCTIONS
+
+    private void Flip ()
+    {
+        spriteRenderer.flipX = !spriteRenderer.flipX;
     }
 }
