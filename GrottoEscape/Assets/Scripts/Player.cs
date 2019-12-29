@@ -13,6 +13,9 @@ public class Player : MonoBehaviour
     [SerializeField] private Transform groundCheck;
     [SerializeField] private Transform bulletSpawn;
     [SerializeField] private LayerMask layerGround;
+    [SerializeField] private float fireRate = 0.5f;
+    [SerializeField] private float timeToNextFire = 1f;
+    [SerializeField] private GameObject prefabBullet;
 
     // State
     [SerializeField] private bool isGrounded = false;
@@ -33,11 +36,6 @@ public class Player : MonoBehaviour
         spriteRenderer = this.GetComponent<SpriteRenderer>();
     }
 
-    private void Start () 
-    {
-        
-    }
-
     private void Update () 
     {
         isGrounded = Physics2D.Linecast (this.transform.position, groundCheck.position, layerGround);
@@ -45,6 +43,11 @@ public class Player : MonoBehaviour
         if (Input.GetButtonDown ("Jump") && isGrounded)
         {
             isJumping = true;
+        }
+
+        if (Input.GetButton ("Fire1") && Time.time > timeToNextFire)
+        {
+            Fire ();
         }
     }
 
@@ -74,5 +77,15 @@ public class Player : MonoBehaviour
     private void Flip ()
     {
         spriteRenderer.flipX = !spriteRenderer.flipX;
+        bulletSpawn.localPosition = new Vector3 (bulletSpawn.localPosition.x * -1, bulletSpawn.localPosition.y, bulletSpawn.localPosition.z);
+    }
+
+    private void Fire ()
+    {
+        timeToNextFire = Time.time + fireRate;
+        GameObject bullet = Instantiate (prefabBullet, bulletSpawn.position, bulletSpawn.rotation);
+        Vector3 bulletAngle = new Vector3 (0, 0, (spriteRenderer.flipX ? 180 : 0));
+        bullet.transform.eulerAngles = bulletAngle;
+        animator.SetTrigger ("Fire");
     }
 }
