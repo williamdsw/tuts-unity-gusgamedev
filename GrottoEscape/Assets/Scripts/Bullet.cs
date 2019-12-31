@@ -8,7 +8,7 @@ public class Bullet : MonoBehaviour
     // FIELDS
 
     // Config
-    [SerializeField] private float speed = 2f;
+    [SerializeField] private float speed = 10f;
     private float timeToSelfDestruct = 1f;
 
     //-----------------------------------------------------------------//

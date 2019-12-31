@@ -6,12 +6,12 @@ public class Player : MonoBehaviour
     // FIELDS
 
     // Config
-    [SerializeField] private float maxSpeed = 1f;
-    [SerializeField] private float jumpForce = 150f;
+    [SerializeField] private float maxSpeed = 7f;
+    [SerializeField] private float jumpForce = 300f;
     [SerializeField] private Transform groundCheck;
     [SerializeField] private Transform bulletSpawn;
     [SerializeField] private LayerMask layerGround;
-    [SerializeField] private float fireRate = 0.25f;
+    [SerializeField] private float fireRate = 0.5f;
     [SerializeField] private float timeToNextFire = 1f;
     [SerializeField] private GameObject prefabBullet;
 
