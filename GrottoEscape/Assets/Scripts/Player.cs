@@ -68,7 +68,7 @@ public class Player : MonoBehaviour
         }
 
         animator.SetFloat ("Speed", Mathf.Abs (horizontal));
-        animator.SetBool ("IsJumpFall", rigidBody2D.velocity.y != 0f);
+        animator.SetBool ("IsJumpFall", !isGrounded);
     }
 
     //-----------------------------------------------------------------//
