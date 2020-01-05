@@ -10,6 +10,7 @@ public class Bullet : MonoBehaviour
     // Config
     [SerializeField] private float speed = 10f;
     private float timeToSelfDestruct = 1f;
+    [SerializeField] private int damage = 1;
 
     //-----------------------------------------------------------------//
     // MONOBEHAVIOUR FUNCTIONS
@@ -24,8 +25,18 @@ public class Bullet : MonoBehaviour
         this.transform.Translate (Vector2.right * speed * Time.deltaTime);
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    private void OnTriggerEnter2D (Collider2D other)
     {
+        // Checks enemy
+        if (other.CompareTag ("Enemy"))
+        {
+            EnemyController enemy = other.GetComponent<EnemyController>();
+            if (enemy)
+            {
+                enemy.InflictDamage (damage);
+            }
+        }
+        
         Destroy (this.gameObject);
     }
 }

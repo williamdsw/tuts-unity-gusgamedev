@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
@@ -100,5 +101,23 @@ public class EnemyController : MonoBehaviour
     {
         spriteRenderer.flipX = !spriteRenderer.flipX;
         moveSpeed *= -1;
+    }
+
+    public void InflictDamage (int value)
+    {
+        health -= value;
+        StartCoroutine (FlickSprite ());
+
+        if (health <= 0)
+        {
+            Destroy (this.gameObject);
+        }
+    }
+
+    private IEnumerator FlickSprite ()
+    {
+        spriteRenderer.color = Color.red;
+        yield return new WaitForSeconds (0.1f);
+        spriteRenderer.color = Color.white;
     }
 }
