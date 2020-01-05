@@ -10,6 +10,7 @@ public class EnemyController : MonoBehaviour
     [SerializeField] protected int health;
     [SerializeField] protected float moveSpeed;
     [SerializeField] protected float distanceToAttack;
+    [SerializeField] private int damage;
 
     // State
     protected bool isMoving = false;
@@ -51,6 +52,16 @@ public class EnemyController : MonoBehaviour
     public void SetDistanceToAttack (float distanceToAttack)
     {
         this.distanceToAttack = distanceToAttack;
+    }
+
+    public int GetDamage ()
+    {
+        return this.damage;
+    }
+
+    public void SetDamage (int damage)
+    {
+        this.damage = damage;
     }
 
     public bool GetIsMoving ()

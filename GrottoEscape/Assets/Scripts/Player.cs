@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 public class Player : MonoBehaviour
 {
@@ -18,11 +19,21 @@ public class Player : MonoBehaviour
     // State
     [SerializeField] private bool isGrounded = false;
     [SerializeField] private bool isJumping = false;
+    [SerializeField] private int health = 10;
+    [SerializeField] private bool isInvunerable = false;
 
     // Cached
     private Rigidbody2D rigidBody2D;
     private Animator animator;
     private SpriteRenderer spriteRenderer;
+
+    //-----------------------------------------------------------------//
+    // GETTERS / SETTERS
+
+    public bool GetIsInvunerable ()
+    {
+        return this.isInvunerable;
+    }
 
     //-----------------------------------------------------------------//
     // MONOBEHAVIOUR FUNCTIONS
@@ -85,5 +96,32 @@ public class Player : MonoBehaviour
         Vector3 bulletAngle = new Vector3 (0, 0, (spriteRenderer.flipX ? 180 : 0));
         bullet.transform.eulerAngles = bulletAngle;
         animator.SetTrigger ("Fire");
+    }
+
+    public void InflictDamage (int value)
+    {
+        isInvunerable = true;
+        health -= value;
+        StartCoroutine (FlickSprite ());
+
+        if (health <= 0)
+        {
+            //Destroy (this.gameObject);
+            Debug.Log ("Morreu");
+        }
+    }
+
+    private IEnumerator FlickSprite ()
+    {
+        float amountToIncrement = 0.1f;
+        for (float i = 0f; i < 1f; i += amountToIncrement)
+        {
+            spriteRenderer.enabled = false;
+            yield return new WaitForSeconds (amountToIncrement);
+            spriteRenderer.enabled = true;
+            yield return new WaitForSeconds (amountToIncrement);
+        }
+
+        isInvunerable = false;
     }
 }
