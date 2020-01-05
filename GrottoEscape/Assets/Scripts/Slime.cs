@@ -10,23 +10,13 @@ public class Slime : EnemyController
     private void Start ()
     {
         this.SetHealth (2);
-        this.SetMoveSpeed (2);
+        this.SetMoveSpeed (2f);
         this.SetDistanceToAttack (3f);
     }
 
-    private void Update () 
+    protected override void Update () 
     {
-        float currentDistance = this.CalculatePlayerDistance ();
-        this.SetIsMoving ((currentDistance <= this.GetDistanceToAttack ()));
-
-        if (this.GetIsMoving ())
-        {
-            if ((player.position.x > this.transform.position.x && spriteRenderer.flipX) || 
-                (player.position.x < this.transform.position.x && !spriteRenderer.flipX))
-            {
-                this.FlipSprite ();
-            }
-        }
+        base.Update ();
     }
 
     private void FixedUpdate () 

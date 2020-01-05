@@ -6,12 +6,12 @@ public class EnemyController : MonoBehaviour
     // FIELDS
 
     // Config
-    protected int health;
-    [SerializeField] private int moveSpeed;
-    protected float distanceToAttack;
+    [SerializeField] protected int health;
+    [SerializeField] protected float moveSpeed;
+    [SerializeField] protected float distanceToAttack;
 
     // State
-    [SerializeField] protected bool isMoving = false;
+    protected bool isMoving = false;
 
     // Cached
     protected Rigidbody2D rigidBody2D;
@@ -32,12 +32,12 @@ public class EnemyController : MonoBehaviour
         this.health = health;
     }
 
-    public int GetMoveSpeed ()
+    public float GetMoveSpeed ()
     {
         return this.moveSpeed;
     }
 
-    public void SetMoveSpeed (int moveSpeed)
+    public void SetMoveSpeed (float moveSpeed)
     {
         this.moveSpeed = moveSpeed;
     }
@@ -71,6 +71,21 @@ public class EnemyController : MonoBehaviour
         animator = this.GetComponent<Animator>();
         spriteRenderer = this.GetComponent<SpriteRenderer>();
         player = GameObject.Find ("Player").GetComponent<Transform>();
+    }
+
+    protected virtual void Update ()
+    {
+        float currentDistance = this.CalculatePlayerDistance ();
+        this.SetIsMoving ((currentDistance <= this.GetDistanceToAttack ()));
+
+        if (this.GetIsMoving ())
+        {
+            if ((player.position.x > this.transform.position.x && spriteRenderer.flipX) || 
+                (player.position.x < this.transform.position.x && !spriteRenderer.flipX))
+            {
+                this.FlipSprite ();
+            }
+        }
     }
 
     //-----------------------------------------------------------------//
