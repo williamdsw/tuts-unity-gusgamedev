@@ -7,7 +7,7 @@ public class Player : MonoBehaviour
 
     // Config
     [SerializeField] private float maxSpeed = 7f;
-    [SerializeField] private float jumpForce = 300f;
+    [SerializeField] private float jumpForce = 650f;
     [SerializeField] private Transform groundCheck;
     [SerializeField] private Transform bulletSpawn;
     [SerializeField] private LayerMask layerGround;
