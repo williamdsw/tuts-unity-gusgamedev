@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
@@ -21,6 +22,7 @@ public class Player : MonoBehaviour
     [SerializeField] private bool isJumping = false;
     [SerializeField] private int health = 10;
     [SerializeField] private bool isInvunerable = false;
+    [SerializeField] private bool isAlive = true;
 
     // Cached
     private Rigidbody2D rigidBody2D;
@@ -47,6 +49,9 @@ public class Player : MonoBehaviour
 
     private void Update () 
     {
+        // Checks
+        if (!isAlive) { return; }
+
         isGrounded = Physics2D.Linecast (this.transform.position, groundCheck.position, layerGround);
 
         if (Input.GetButtonDown ("Jump") && isGrounded)
@@ -62,6 +67,9 @@ public class Player : MonoBehaviour
 
     private void FixedUpdate () 
     {
+        // Checks
+        if (!isAlive) { return; }
+
         float horizontal = Input.GetAxis ("Horizontal");
         rigidBody2D.velocity = new Vector2 (horizontal * maxSpeed, rigidBody2D.velocity.y);
 
@@ -100,14 +108,18 @@ public class Player : MonoBehaviour
 
     public void InflictDamage (int value)
     {
+        // Checks
+        if (!isAlive) { return; }
+
         isInvunerable = true;
         health -= value;
         StartCoroutine (FlickSprite ());
 
         if (health <= 0)
         {
-            //Destroy (this.gameObject);
-            Debug.Log ("Morreu");
+            isAlive = false;
+            animator.SetTrigger ("Death");
+            Invoke ("ReloadLevel", 3f);
         }
     }
 
@@ -123,5 +135,10 @@ public class Player : MonoBehaviour
         }
 
         isInvunerable = false;
+    }
+
+    private void ReloadLevel ()
+    {
+        SceneManager.LoadScene (SceneManager.GetActiveScene ().buildIndex);
     }
 }
