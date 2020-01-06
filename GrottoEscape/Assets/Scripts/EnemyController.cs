@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 
+[RequireComponent (typeof (AudioSource))]
 public class EnemyController : MonoBehaviour
 {
     //-----------------------------------------------------------------//
@@ -11,6 +12,7 @@ public class EnemyController : MonoBehaviour
     [SerializeField] protected float moveSpeed;
     [SerializeField] protected float distanceToAttack;
     [SerializeField] private int damage;
+    [SerializeField] private AudioClip hitSound;
 
     // State
     protected bool isMoving = false;
@@ -20,6 +22,7 @@ public class EnemyController : MonoBehaviour
     protected Animator animator;
     protected SpriteRenderer spriteRenderer;
     protected Transform player;
+    protected AudioSource audioSource;
 
     //-----------------------------------------------------------------//
     // GETTERS / SETTERS
@@ -82,6 +85,7 @@ public class EnemyController : MonoBehaviour
         rigidBody2D = this.GetComponent<Rigidbody2D>();
         animator = this.GetComponent<Animator>();
         spriteRenderer = this.GetComponent<SpriteRenderer>();
+        audioSource = this.GetComponent<AudioSource>();
         player = GameObject.Find ("Player").GetComponent<Transform>();
     }
 
@@ -116,6 +120,7 @@ public class EnemyController : MonoBehaviour
 
     public void InflictDamage (int value)
     {
+        audioSource.Play ();
         health -= value;
         StartCoroutine (FlickSprite ());
 

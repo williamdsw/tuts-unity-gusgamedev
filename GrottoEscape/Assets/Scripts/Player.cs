@@ -16,6 +16,8 @@ public class Player : MonoBehaviour
     [SerializeField] private float fireRate = 0.5f;
     [SerializeField] private float timeToNextFire = 1f;
     [SerializeField] private GameObject prefabBullet;
+    [SerializeField] private AudioClip jumpSound;
+    [SerializeField] private AudioClip hitSound;
 
     // State
     [SerializeField] private bool isGrounded = false;
@@ -28,6 +30,7 @@ public class Player : MonoBehaviour
     private Rigidbody2D rigidBody2D;
     private Animator animator;
     private SpriteRenderer spriteRenderer;
+    private AudioSource audioSource;
 
     //-----------------------------------------------------------------//
     // GETTERS / SETTERS
@@ -50,6 +53,7 @@ public class Player : MonoBehaviour
         rigidBody2D = this.GetComponent<Rigidbody2D>();
         animator = this.GetComponent<Animator>();
         spriteRenderer = this.GetComponent<SpriteRenderer>();
+        audioSource = this.GetComponent<AudioSource>();
     }
 
     private void Update () 
@@ -62,6 +66,7 @@ public class Player : MonoBehaviour
         if (Input.GetButtonDown ("Jump") && isGrounded)
         {
             isJumping = true;
+            audioSource.PlayOneShot (jumpSound);
         }
 
         if (Input.GetButton ("Fire1") && Time.time > timeToNextFire)
@@ -116,6 +121,7 @@ public class Player : MonoBehaviour
         // Checks
         if (!isAlive) { return; }
 
+        audioSource.PlayOneShot (hitSound);
         isInvunerable = true;
         health -= value;
         StartCoroutine (FlickSprite ());
