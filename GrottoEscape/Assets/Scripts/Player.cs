@@ -32,6 +32,11 @@ public class Player : MonoBehaviour
     //-----------------------------------------------------------------//
     // GETTERS / SETTERS
 
+    public int GetHealth ()
+    {
+        return this.health;
+    }
+
     public bool GetIsInvunerable ()
     {
         return this.isInvunerable;

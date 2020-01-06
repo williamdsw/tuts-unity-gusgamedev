@@ -168,6 +168,9 @@ MonoBehaviour:
   prefabBullet: {fileID: 162026, guid: 7e29bfda6ae9b41179eef7f4860e49ac, type: 3}
   isGrounded: 0
   isJumping: 0
+  health: 6
+  isInvunerable: 0
+  isAlive: 1
 --- !u!1 &609894981
 GameObject:
   m_ObjectHideFlags: 0
@@ -238,6 +241,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2062633587}
   - component: {fileID: 9135759198683230979}
+  - component: {fileID: 7658809306366385336}
   m_Layer: 14
   m_Name: Trigger
   m_TagString: Untagged
@@ -275,3 +279,15 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: -0.09575951}
   m_Size: {x: 0.5, y: 0.808481}
   m_Direction: 0
+--- !u!114 &7658809306366385336
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2062633586}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 97396498169c8de449299ebfe7dc2c15, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
