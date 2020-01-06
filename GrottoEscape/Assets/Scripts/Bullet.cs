@@ -37,6 +37,9 @@ public class Bullet : MonoBehaviour
             }
         }
         
-        Destroy (this.gameObject);
+        if (!other.GetComponent<Player> () || !other.GetComponent<PlayerTrigger>())
+        {
+            Destroy (this.gameObject);
+        }
     }
 }

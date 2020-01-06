@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerTrigger : MonoBehaviour
 {
@@ -27,5 +28,19 @@ public class PlayerTrigger : MonoBehaviour
                 player.InflictDamage (enemy.GetDamage ());
             }
         }
+
+        if (other.CompareTag ("Portal"))
+        {
+            Destroy (other.gameObject);
+            Invoke ("NextLevel", 3f);
+        }
+    }
+
+    //-----------------------------------------------------------------//
+    // HELPER FUNCTIONS
+
+    private void NextLevel ()
+    {
+        SceneManager.LoadScene (SceneManager.GetActiveScene ().buildIndex);
     }
 }
