@@ -9,6 +9,15 @@ public class SpawnManager : MonoBehaviour
     [SerializeField] private Transform[] spawnPoints;
     [SerializeField] private GameObject enemyPrefab;
 
+    // || Cached References
+
+    private PlayerController playerController;
+
+    private void Awake()
+    {
+        playerController = FindObjectOfType<PlayerController>();
+    }
+
     private void Start()
     {
         InvokeRepeating("SpawnEnemies", 0.5f, 1f);
@@ -16,7 +25,10 @@ public class SpawnManager : MonoBehaviour
 
     private void SpawnEnemies()
     {
-        int index = Random.Range(0, spawnPoints.Length);
-        Instantiate(enemyPrefab, spawnPoints[index].position, Quaternion.identity);
+        if (playerController)
+        {
+            int index = Random.Range(0, spawnPoints.Length);
+            Instantiate(enemyPrefab, spawnPoints[index].position, Quaternion.identity);
+        }
     }
 }

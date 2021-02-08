@@ -1,6 +1,6 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -32,5 +32,20 @@ public class PlayerController : MonoBehaviour
         moveInput.y = Input.GetAxis("Vertical");
         transform.Translate(moveInput * Time.deltaTime * moveSpeed);
         animator.SetBool("IsMoving", moveInput != Vector2.zero);
+    }
+
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        if (other.gameObject.CompareTag("Enemy"))
+        {
+            StartCoroutine(OnDeath());
+        }
+    }
+
+    private IEnumerator OnDeath()
+    {
+        Destroy(gameObject);
+        yield return new WaitForSecondsRealtime(3f);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }

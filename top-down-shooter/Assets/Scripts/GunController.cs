@@ -1,11 +1,13 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class GunController : MonoBehaviour
 {
+    // || Inspector References
+
     [SerializeField] private GameObject bulletPrefab;
     [SerializeField] private Transform spawnBullet;
+
+    // || Cached References
 
     private SpriteRenderer spriteRenderer;
 
@@ -14,7 +16,6 @@ public class GunController : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
-    // Update is called once per frame
     private void Update()
     {
         Aim();
@@ -37,6 +38,11 @@ public class GunController : MonoBehaviour
         {
             if (Input.GetButtonDown("Fire1"))
             {
+                if (AudioController.Instance)
+                {
+                    AudioController.Instance.Play(AudioController.Instance.Bullet);
+                }
+
                 Instantiate(bulletPrefab, spawnBullet.position, transform.rotation);
             }
         }

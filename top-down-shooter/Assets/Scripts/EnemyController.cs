@@ -37,10 +37,12 @@ public class EnemyController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (animator)
+        if (other.CompareTag("Bullet") && isAlive)
         {
-            if (other.CompareTag("Bullet") && isAlive)
+            if (animator && AudioController.Instance)
             {
+                AudioController.Instance.Play(AudioController.Instance.Death);
+
                 animator.SetTrigger("Death");
                 isAlive = false;
                 Destroy(gameObject, 0.5f);
