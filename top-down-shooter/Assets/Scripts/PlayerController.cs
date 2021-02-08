@@ -23,10 +23,14 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+        Move();
+    }
+
+    private void Move()
+    {
         moveInput.x = Input.GetAxis("Horizontal");
         moveInput.y = Input.GetAxis("Vertical");
         transform.Translate(moveInput * Time.deltaTime * moveSpeed);
-
         animator.SetBool("IsMoving", moveInput != Vector2.zero);
     }
 }
