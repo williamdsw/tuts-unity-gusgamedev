@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class GunController : MonoBehaviour
 {
+    [SerializeField] private GameObject bulletPrefab;
+    [SerializeField] private Transform spawnBullet;
+
     private SpriteRenderer spriteRenderer;
 
     private void Awake()
@@ -14,10 +17,11 @@ public class GunController : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        LookAtMouse();
+        Aim();
+        Shoot();
     }
 
-    private void LookAtMouse()
+    private void Aim()
     {
         Vector3 mousePosition = Input.mousePosition;
         Vector3 screenPoint = Camera.main.WorldToScreenPoint(transform.position);
@@ -25,5 +29,16 @@ public class GunController : MonoBehaviour
         float angle = Mathf.Atan2(offset.y, offset.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.Euler(0, 0, angle);
         spriteRenderer.flipY = (mousePosition.x < screenPoint.x);
+    }
+
+    private void Shoot()
+    {
+        if (bulletPrefab && spawnBullet)
+        {
+            if (Input.GetButtonDown("Fire1"))
+            {
+                Instantiate(bulletPrefab, spawnBullet.position, transform.rotation);
+            }
+        }
     }
 }
