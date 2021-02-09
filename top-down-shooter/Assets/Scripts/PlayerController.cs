@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using UnityEngine;
-using UnityEngine.SceneManagement;
+﻿using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
@@ -15,10 +13,12 @@ public class PlayerController : MonoBehaviour
     // || Cached References
 
     private Animator animator;
+    private Collider2D myCollider;
 
     private void Awake()
     {
         animator = GetComponentInChildren<Animator>();
+        myCollider = GetComponent<Collider2D>();
     }
 
     private void Update()
@@ -38,14 +38,14 @@ public class PlayerController : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Enemy"))
         {
-            StartCoroutine(OnDeath());
+            if (GameManager.Instance)
+            {
+                myCollider.enabled = false;
+                GameManager.Instance.IsPlayerAlive = false;
+                GameManager.Instance.GameOver();
+                Destroy(gameObject);
+            }
         }
     }
 
-    private IEnumerator OnDeath()
-    {
-        Destroy(gameObject);
-        yield return new WaitForSecondsRealtime(3f);
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-    }
 }

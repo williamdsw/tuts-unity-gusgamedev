@@ -12,6 +12,8 @@ public class EnemyController : MonoBehaviour
 
     private Animator animator;
 
+    private Collider2D myCollider;
+
     // || State
 
     private bool isAlive = true;
@@ -20,6 +22,7 @@ public class EnemyController : MonoBehaviour
     private void Awake()
     {
         animator = GetComponentInChildren<Animator>();
+        myCollider = GetComponent<Collider2D>();
     }
 
     private void Start()
@@ -37,16 +40,22 @@ public class EnemyController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Bullet") && isAlive)
+        if (isAlive)
         {
-            if (animator && AudioController.Instance)
+            if (other.CompareTag("Bullet"))
             {
-                AudioController.Instance.Play(AudioController.Instance.Death);
+                if (animator && AudioController.Instance && GameManager.Instance)
+                {
+                    myCollider.enabled = false;
+                    AudioController.Instance.Play(AudioController.Instance.Death);
+                    GameManager.Instance.UpdateNumberOfEnemiesKilled();
 
-                animator.SetTrigger("Death");
-                isAlive = false;
-                Destroy(gameObject, 0.5f);
+                    animator.SetTrigger("Death");
+                    isAlive = false;
+                    Destroy(gameObject, 0.5f);
+                }
             }
         }
+
     }
 }
