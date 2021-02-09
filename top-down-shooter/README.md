@@ -13,5 +13,5 @@ Project based on [tutorials from this playlist](https://www.youtube.com/playlist
 
 ## Credits
 
-* [Top-Down Shooter Tutorial Assets](https://thomasgvd.itch.io/top-down-shooter).
-* [From Cartoon Blocks](https://www.1001freefonts.com/from-cartoon-blocks.font).*
+* [Top-Down Shooter Tutorial Assets](https://thomasgvd.itch.io/top-down-shooter)
+* [From Cartoon Blocks](https://www.1001freefonts.com/from-cartoon-blocks.font)
